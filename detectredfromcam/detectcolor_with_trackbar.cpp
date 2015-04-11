@@ -32,6 +32,13 @@ int main(int argc, char **argv)
 
   cv::Mat hsv, frame, hue, hue1, hue2, saturation, value, hue_saturation, mask;          //変数確保
 
+  int low_hue, up_hue, low_saturation, low_value;
+  
+  cv::createTrackbar("low_hue", window_output, &low_hue, 255);
+  cv::createTrackbar("up_hue", window_output, &up_hue, 255);
+  cv::createTrackbar("low_saturation", window_output, &low_saturation, 255);
+  cv::createTrackbar("low_value", window_output, &low_value, 255);
+
   while (1) {
 
     cap >> frame;                                       //画像取り込み
@@ -47,10 +54,10 @@ int main(int argc, char **argv)
     cv::split(hsv, singlechannels);//hsvをsinglechannelsに分解([0]:h, [1]:s,[2]:v)
 
     //それぞれのチャンネルことに閾値を設定して二値化
-    cv::threshold(singlechannels[0], hue1, LOW_HUE, 255, CV_THRESH_BINARY);                 // singlechannels[0]をLOW_HUEを閾値処理して、LOW_HUE以上の部分が255,それ以下の部分が0になるように、hue1に格納する。
-    cv::threshold(singlechannels[0], hue2, UP_HUE, 255, CV_THRESH_BINARY_INV);              // singlechannels[0]をUP_HUEを閾値処理して、UP_HUE以上の部分が0,それ以下の部分が255になるように、hue2に格納する。
-    cv::threshold(singlechannels[1], saturation, LOW_SATURATION, 255, CV_THRESH_BINARY);    //彩度LOW_SATURATION以上
-    cv::threshold(singlechannels[2], value, LOW_VALUE, 255, CV_THRESH_BINARY);              //明度LOW_VALUE以上
+    cv::threshold(singlechannels[0], hue1, low_hue, 255, CV_THRESH_BINARY);                 // singlechannels[0]をLOW_HUEを閾値処理して、LOW_HUE以上の部分が255,それ以下の部分が0になるように、hue1に格納する。
+    cv::threshold(singlechannels[0], hue2, up_hue, 255, CV_THRESH_BINARY_INV);              // singlechannels[0]をUP_HUEを閾値処理して、UP_HUE以上の部分が0,それ以下の部分が255になるように、hue2に格納する。
+    cv::threshold(singlechannels[1], saturation, low_saturation, 255, CV_THRESH_BINARY);    //彩度LOW_SATURATION以上
+    cv::threshold(singlechannels[2], value, low_value, 255, CV_THRESH_BINARY);              //明度LOW_VALUE以上
 
     //条件を満たした領域をoutに設定
     cv::bitwise_and(hue1, hue2, hue);                                                       // hue1とhue2のbitごとのandをとる→hue

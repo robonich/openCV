@@ -11,6 +11,8 @@ LDLIBS = -lopencv_highgui -lopencv_core -lopencv_calib3d -lopencv_contrib -lopen
 TARGET : \
 	moviefromcam \
 	detectredfromcam \
+	detectgreenfromcam \
+	detectcolor_with_trackbar \
 
 all :
 	$(TARGET)

@@ -1,12 +1,8 @@
-//参考にしたサイト
-//http://carnation.is.konan-u.ac.jp/seminar/colorextraction.htm 特定の色のマスク作成
-//http://qiita.com/crakaC/items/65fab9d0b0ac29e68ab6 マスクに色をつける
-
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#define  LOW_HUE        0              //hueの下限
-#define  UP_HUE         15             //hueの上限
+#define  LOW_HUE        30              //hueの下限
+#define  UP_HUE         80              //hueの上限
 #define  LOW_SATURATION 60              //saturation（彩度）の下限
 #define  LOW_VALUE      80              //value（明度）の下限
 
